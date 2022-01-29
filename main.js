@@ -1,23 +1,62 @@
-const MOVES = ["rock", "paper", "scissors"];
 
 /// Main game flow
-const playerSelection = "rock"; // Placeholder input for player
-playRound(playerSelection, ComputerPlay());
+let playerPoints = 0;
+let computerPoints = 0;
+game(); // Start game
+///
 
+function game(){
+    // Play specified number of rounds
+    const numRounds = 5;
+    for (let i = 0; i < numRounds; i++) {
+        console.log(`*****************ROUND ${i+1}*****************`);
+        playRound();
+    }
 
-function ComputerPlay() {
-    return MOVES[Math.floor(Math.random()* MOVES.length)]; // Return random move
+    // Decide on final winner
+    let finalWinner;
+    if (playerPoints > computerPoints){
+        finalWinner = "Player";
+    } else if (playerPoints < computerPoints) {
+        finalWinner = "Computer";
+    } else {
+        finalWinner = "Tie!";
+    }
+
+    // Print final results
+    console.log(`FINAL RESULTS:
+    The overall winner is: ${finalWinner}`);
+
 }
 
-function playRound(playerSelection, computerSelection){
+function playRound(){
+    // Player chooses
+    let playerSelection = prompt("Make a selection").toLowerCase();
+    // Computer chooses
+    let computerSelection = ComputerPlay();
     console.log("Player selected: " + playerSelection);
     console.log("Computer selected: " + computerSelection);
     let winner = getWinner(playerSelection, computerSelection);
+    if (winner !== "Invalid selection"){
+        tallyPoints(winner);
+    }
     console.log(`The winner is: ${winner}`);
 }
 
+function tallyPoints(winner){
+    // Add points for winner
+    (winner === "Player") ? playerPoints++ : computerPoints++
+    // Print total score
+    console.log(`Point count | Player: ${playerPoints} | Computer: ${computerPoints}`);
+}
+
+function ComputerPlay() {
+    const MOVES = ["rock", "paper", "scissors"];
+    return MOVES[Math.floor(Math.random()* MOVES.length)]; // Return random move
+}
+
 function getWinner(playerSelection, computerSelection){
-    return(
+    return( // Winning logic
         playerSelection === "rock" && computerSelection === "rock" ? "Tie" :
         playerSelection === "rock" && computerSelection === "paper" ? "Computer" :
         playerSelection === "rock" && computerSelection === "scissors" ? "Player" :
