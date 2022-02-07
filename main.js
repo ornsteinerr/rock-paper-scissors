@@ -45,7 +45,7 @@ function playRound(){
 
 function tallyPoints(winner){
     // Add points for winner
-    (winner === "Player") ? playerPoints++ : computerPoints++
+    (winner === "Player") ? playerPoints++ : computerPoints++;
     // Print total score
     console.log(`Point count | Player: ${playerPoints} | Computer: ${computerPoints}`);
 }
@@ -57,17 +57,15 @@ function ComputerPlay() {
 
 function getWinner(playerSelection, computerSelection){
     return( // Winning logic
-        playerSelection === "rock" && computerSelection === "rock" ? "Tie" :
+        playerSelection === computerSelection ? "Tie" :
         playerSelection === "rock" && computerSelection === "paper" ? "Computer" :
         playerSelection === "rock" && computerSelection === "scissors" ? "Player" :
 
         playerSelection === "paper" && computerSelection === "rock" ? "Player" :
-        playerSelection === "paper" && computerSelection === "paper" ? "Tie" :
         playerSelection === "paper" && computerSelection === "scissors" ? "Computer" :
 
         playerSelection === "scissors" && computerSelection === "rock" ? "Computer" :
         playerSelection === "scissors" && computerSelection === "paper" ? "Player" :
-        playerSelection === "scissors" && computerSelection === "scissors" ? "Tie" :
         "Invalid selection"
     );
 }
