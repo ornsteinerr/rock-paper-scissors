@@ -29,7 +29,7 @@ function game(){
 
 }
 
-// Event listener for moves
+// Event listener for player moves
 
 // const rbtn = document.querySelector('#r');
 // rbtn.move = "rock";
@@ -42,7 +42,7 @@ buttons.forEach((button) => {
 
 function playRound(){
     // Player chooses
-  //  let playerSelection = prompt("Make a selection").toLowerCase();
+    // let playerSelection = prompt("Make a selection").toLowerCase();
     // Computer chooses
     let computerSelection = ComputerPlay();
     let playerMove = this.textContent.toLowerCase();
