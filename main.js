@@ -21,9 +21,9 @@ function game(){
         finalWinner = "Computer";
     } else {
         finalWinner = "Tie!";
-    }
+    } 
 
-    // Print final results
+    // Print final results s
     console.log(`FINAL RESULTS:
     The overall winner is: ${finalWinner}`);
 
