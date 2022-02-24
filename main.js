@@ -8,10 +8,10 @@ game(); // Start game
 function game(){
     // Play specified number of rounds
     const numRounds = 5;
-    for (let i = 0; i < numRounds; i++) {
-        console.log(`*****************ROUND ${i+1}*****************`);
-        playRound();
-    }
+    // for (let i = 0; i < numRounds; i++) {
+    //     console.log(`*****************ROUND ${i+1}*****************`);
+    //     playRound();
+    // }
 
     // Decide on final winner
     let finalWinner;
@@ -23,20 +23,32 @@ function game(){
         finalWinner = "Tie!";
     } 
 
-    // Print final results s
-    console.log(`FINAL RESULTS:
-    The overall winner is: ${finalWinner}`);
+    // Print final results
+  //  console.log(`FINAL RESULTS:
+   // The overall winner is: ${finalWinner}`);
 
 }
 
+// Event listener for moves
+
+// const rbtn = document.querySelector('#r');
+// rbtn.move = "rock";
+// rbtn.addEventListener('click', playRound);
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', playRound);
+})
+
 function playRound(){
     // Player chooses
-    let playerSelection = prompt("Make a selection").toLowerCase();
+  //  let playerSelection = prompt("Make a selection").toLowerCase();
     // Computer chooses
     let computerSelection = ComputerPlay();
-    console.log("Player selected: " + playerSelection);
+    let playerMove = this.textContent.toLowerCase();
+    console.log("Player selected: " + playerMove);
     console.log("Computer selected: " + computerSelection);
-    let winner = getWinner(playerSelection, computerSelection);
+    let winner = getWinner(playerMove, computerSelection);
     if (winner !== "Invalid selection"){
         tallyPoints(winner);
     }
