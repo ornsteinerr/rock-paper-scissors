@@ -55,11 +55,21 @@ function playRound(){
     console.log(`The winner is: ${winner}`);
 }
 
+const pointsLog = document.querySelector('#pointsLog');
+
+function createPara(text){
+    const p = document.createElement('p');
+    p.textContent = text;
+    return p;
+}
+
 function tallyPoints(winner){
     // Add points for winner
     (winner === "Player") ? playerPoints++ : computerPoints++;
     // Print total score
-    console.log(`Point count | Player: ${playerPoints} | Computer: ${computerPoints}`);
+    let scoreText = `Point count | Player: ${playerPoints} | Computer: ${computerPoints}`;
+    pointsLog.appendChild(createPara(scoreText));
+
 }
 
 function ComputerPlay() {
