@@ -16,19 +16,21 @@
         <input type="text" id="numRounds" value ="0">
         <button id="play">Play</button>
      </div>
-    <div id="game">
+    <div id="gameArea">
         <div id="pointsTally">
             <h2> You: <div id="playerPointCounter">0</div></h2>
             <h2> Computer: <div id="computerPointCounter">0</div></h2>
         </div>
         <div id="round">
-            Round <div id="currentRound">0 </div> of <div id="totalRound">0</div>
+            Round <div id="currentRoundDisplay">1</div> of <div id="totalRoundDisplay">0</div>
         </div>
         <div id="winnerMsg"></div>
-        </p>Pick a move!</p>
-        <button class="moveType">Rock</button>
-        <button class="moveType">Paper</button>
-        <button class="moveType">Scissors</button>
+        <div id="moveList">
+            <p id="moveMsg">Pick a move!</p>
+            <button class="moveType">Rock</button>
+            <button class="moveType">Paper</button>
+            <button class="moveType">Scissors</button>
+        </div>
         <div id="history"> 
             <h2>Results</h2>
             <div class="playerHistory"> <h3>Player</h3></div>

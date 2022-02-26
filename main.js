@@ -1,50 +1,65 @@
-
-/// Main game flow
+/// Declare game variables
 let playerPoints = 0;
 let computerPoints = 0;
-game(); // Start game
+let currentRound = 0;
+let numRounds;
+startGame(); // Start game
 ///
 
-function game(){
-    // Play specified number of rounds
+
+function startGame(){
     const play = document.querySelector('#play');
     play.addEventListener('click', startGame);
+    // Update user inputted number of rounds to play
+    const totalRoundDisplay = document.querySelector('#totalRoundDisplay');
+    numRounds = document.getElementById('numRounds').value;
+    totalRoundDisplay.textContent = numRounds;
+    // Reveal game area
+    const gameArea = document.querySelector('#gameArea');
+    gameArea.style.display = 'block';
+}
 
-    // for (let i = 0; i < numRounds; i++) {
-    //     console.log(`*****************ROUND ${i+1}*****************`);
-    //     playRound();
-    // }
+function updateRound(){
 
-    // Decide on final winner
-    let finalWinner;
-    if (playerPoints > computerPoints){
-        finalWinner = "Player";
-    } else if (playerPoints < computerPoints) {
-        finalWinner = "Computer";
-    } else {
-        finalWinner = "Tie!";
-    } 
+    // Update round display
 
-    // Print final results
-
-   `FINAL RESULTS: The overall winner is: ${finalWinner}`
+    currentRound++;
+    const currentRoundDisplay = document.querySelector('#currentRoundDisplay');
+    currentRoundDisplay.textContent = currentRound;
+    console.log(`currentRound: ${currentRound} numRounds: ${numRounds}`);
+    // If all rounds have been played, hide the move list
+    if (currentRound == numRounds)
+    {
+        endGame();
+    }
 
 }
 
-function startGame(){
-    let currentRound = 0;
+function endGame(){
 
-    const numRounds = document.getElementById('numRounds').value;
-    const announcement = document.createElement('h2');
-    announcement.textContent = `Playing Round ${currentRound} of ${numRounds}`;
-    announcement.id = 'announcement';
-    const start = document.querySelector('#start');
-    start.appendChild(announcement);
+    // Hide moves list and show thanks for playing
+    moveButtons.forEach((moveButton) => {
+    moveButton.style.display = 'none';
+     })
+    const moveMsg = document.querySelector('#moveMsg');
+    moveMsg.textContent = 'Thanks for playing!';
 
-    for (let currentRound = 0; currentRound < numRounds; currentRound++ ){
-        const announcement = document.querySelector('#announcement');
-        announcement.textContent = `Playing Round ${currentRound} of ${numRounds}`;
-    }
+
+    // Decide on final winner
+    let result;
+    if (playerPoints > computerPoints){
+        result = "Great job, you are the winner of this match!";
+    } else if (playerPoints < computerPoints) {
+        result = "Oh no! You lost to the computer.";
+    } else {
+        result = "It was a tie!";
+    } 
+    
+    // Print final results
+
+    const moveList = document.querySelector('#moveList');
+    moveList.appendChild(createPara(result));
+
 }
 
 // Event listener for player moves
@@ -55,7 +70,7 @@ function startGame(){
  })
 
 function playRound(){
-    
+
     // Player makes a move
     let computerSelection = ComputerPlay();
     let playerMove = this.textContent.toLowerCase();
@@ -66,7 +81,8 @@ function playRound(){
     tallyPoints(winner);
     const winnerMsg = document.querySelector('#winnerMsg');
     winnerMsg.textContent = `The winner is: ${winner}`;
-    //console.log(`The winner is: ${winner}`);
+    // Update round information
+    updateRound();
 }
 
 function updateHistory(playerMove, computerSelection){
