@@ -7,7 +7,9 @@ game(); // Start game
 
 function game(){
     // Play specified number of rounds
-    const numRounds = 5;
+    const play = document.querySelector('#play');
+    play.addEventListener('click', startGame);
+
     // for (let i = 0; i < numRounds; i++) {
     //     console.log(`*****************ROUND ${i+1}*****************`);
     //     playRound();
@@ -24,38 +26,56 @@ function game(){
     } 
 
     // Print final results
-  //  console.log(`FINAL RESULTS:
-   // The overall winner is: ${finalWinner}`);
 
+   `FINAL RESULTS: The overall winner is: ${finalWinner}`
+
+}
+
+function startGame(){
+    let currentRound = 0;
+
+    const numRounds = document.getElementById('numRounds').value;
+    const announcement = document.createElement('h2');
+    announcement.textContent = `Playing Round ${currentRound} of ${numRounds}`;
+    announcement.id = 'announcement';
+    const start = document.querySelector('#start');
+    start.appendChild(announcement);
+
+    for (let currentRound = 0; currentRound < numRounds; currentRound++ ){
+        const announcement = document.querySelector('#announcement');
+        announcement.textContent = `Playing Round ${currentRound} of ${numRounds}`;
+    }
 }
 
 // Event listener for player moves
 
-// const rbtn = document.querySelector('#r');
-// rbtn.move = "rock";
-// rbtn.addEventListener('click', playRound);
-
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', playRound);
-})
+ const moveButtons = document.querySelectorAll('.moveType');
+ moveButtons.forEach((moveButton) => {
+    moveButton.addEventListener('click', playRound);
+ })
 
 function playRound(){
-    // Player chooses
-    // let playerSelection = prompt("Make a selection").toLowerCase();
-    // Computer chooses
+    
+    // Player makes a move
     let computerSelection = ComputerPlay();
     let playerMove = this.textContent.toLowerCase();
-    console.log("Player selected: " + playerMove);
-    console.log("Computer selected: " + computerSelection);
+    // Update move
+    updateHistory(playerMove, computerSelection);
+    // Get winner and tally points
     let winner = getWinner(playerMove, computerSelection);
-    if (winner !== "Invalid selection"){
-        tallyPoints(winner);
-    }
-    console.log(`The winner is: ${winner}`);
+    tallyPoints(winner);
+    const winnerMsg = document.querySelector('#winnerMsg');
+    winnerMsg.textContent = `The winner is: ${winner}`;
+    //console.log(`The winner is: ${winner}`);
 }
 
-const pointsLog = document.querySelector('#pointsLog');
+function updateHistory(playerMove, computerSelection){
+    const playerHistory = document.querySelector('.playerHistory');
+    playerHistory.appendChild(createPara(playerMove));
+    const computerHistory = document.querySelector('.computerHistory');
+    computerHistory.appendChild(createPara(computerSelection));
+}
+
 
 function createPara(text){
     const p = document.createElement('p');
@@ -66,10 +86,11 @@ function createPara(text){
 function tallyPoints(winner){
     // Add points for winner
     (winner === "Player") ? playerPoints++ : computerPoints++;
-    // Print total score
-    let scoreText = `Point count | Player: ${playerPoints} | Computer: ${computerPoints}`;
-    pointsLog.appendChild(createPara(scoreText));
-
+    const playerPointCounter = document.querySelector('#playerPointCounter');
+    playerPointCounter.textContent = playerPoints; 
+    const computerPointCounter = document.querySelector('#computerPointCounter');
+    computerPointCounter.textContent = computerPoints; 
+    // TODO: Update points
 }
 
 function ComputerPlay() {
