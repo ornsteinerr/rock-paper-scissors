@@ -3,63 +3,26 @@ let playerPoints = 0;
 let computerPoints = 0;
 let currentRound = 0;
 let numRounds;
-startGame(); // Start game
-///
 
+// Wait for player to start game
+const play = document.querySelector('#play');
+play.addEventListener('click', startGame);
+
+
+/* Core game logic */
 
 function startGame(){
-    const play = document.querySelector('#play');
-    play.addEventListener('click', startGame);
+
     // Update user inputted number of rounds to play
     const totalRoundDisplay = document.querySelector('#totalRoundDisplay');
     numRounds = document.getElementById('numRounds').value;
     totalRoundDisplay.textContent = numRounds;
+    // Hide start area
+    const startArea = document.querySelector('#startArea');
+    startArea.classList.toggle('hidden');
     // Reveal game area
     const gameArea = document.querySelector('#gameArea');
-    gameArea.style.display = 'block';
-}
-
-function updateRound(){
-
-    // Update round display
-
-    currentRound++;
-    const currentRoundDisplay = document.querySelector('#currentRoundDisplay');
-    currentRoundDisplay.textContent = currentRound;
-    console.log(`currentRound: ${currentRound} numRounds: ${numRounds}`);
-    // If all rounds have been played, hide the move list
-    if (currentRound == numRounds)
-    {
-        endGame();
-    }
-
-}
-
-function endGame(){
-
-    // Hide moves list and show thanks for playing
-    moveButtons.forEach((moveButton) => {
-    moveButton.style.display = 'none';
-     })
-    const moveMsg = document.querySelector('#moveMsg');
-    moveMsg.textContent = 'Thanks for playing!';
-
-
-    // Decide on final winner
-    let result;
-    if (playerPoints > computerPoints){
-        result = "Great job, you are the winner of this match!";
-    } else if (playerPoints < computerPoints) {
-        result = "Oh no! You lost to the computer.";
-    } else {
-        result = "It was a tie!";
-    } 
-    
-    // Print final results
-
-    const moveList = document.querySelector('#moveList');
-    moveList.appendChild(createPara(result));
-
+    gameArea.classList.toggle('hidden');
 }
 
 // Event listener for player moves
@@ -92,13 +55,6 @@ function updateHistory(playerMove, computerSelection){
     computerHistory.appendChild(createPara(computerSelection));
 }
 
-
-function createPara(text){
-    const p = document.createElement('p');
-    p.textContent = text;
-    return p;
-}
-
 function tallyPoints(winner){
     // Add points for winner
     (winner === "Player") ? playerPoints++ : computerPoints++;
@@ -106,8 +62,60 @@ function tallyPoints(winner){
     playerPointCounter.textContent = playerPoints; 
     const computerPointCounter = document.querySelector('#computerPointCounter');
     computerPointCounter.textContent = computerPoints; 
-    // TODO: Update points
 }
+
+function updateRound(){
+
+    // Update round display
+    currentRound++;
+    const currentRoundDisplay = document.querySelector('#currentRoundDisplay');
+    currentRoundDisplay.textContent = currentRound;
+    // If all rounds have been played, hide the move list
+    if (currentRound == numRounds)
+    {
+        endGame();
+    }
+
+}
+
+function endGame(){
+
+    // Hide moves list
+    moveButtons.forEach((moveButton) => {
+    moveButton.style.display = 'none';
+     })
+
+    // Decide on final winner
+    let result;
+    if (playerPoints > computerPoints){
+        result = "Great job, you are the winner of this match!";
+    } else if (playerPoints < computerPoints) {
+        result = "Oh no! You lost to the computer.";
+    } else {
+        result = "It was a tie!";
+    } 
+    
+    // Print final results
+
+    const moveList = document.querySelector('#moveList');
+    moveList.appendChild(createPara(result));
+
+    // Add Thanks for Playing msg
+    const moveMsg = document.querySelector('#moveMsg');
+    moveMsg.textContent = 'Thanks for playing!';
+
+    // Show restart button
+    const restartButton = document.querySelector('#restart');
+    restartButton.style.display = 'block';
+    restartButton.addEventListener('click', restart);
+
+}
+
+function restart(){
+    window.location.reload();
+}
+
+/** Calculator functions **/
 
 function ComputerPlay() {
     const MOVES = ["rock", "paper", "scissors"];
@@ -115,7 +123,7 @@ function ComputerPlay() {
 }
 
 function getWinner(playerSelection, computerSelection){
-    return( // Winning logic
+    return( // Return winner of the round
         playerSelection === computerSelection ? "Tie" :
         playerSelection === "rock" && computerSelection === "paper" ? "Computer" :
         playerSelection === "rock" && computerSelection === "scissors" ? "Player" :
@@ -127,6 +135,15 @@ function getWinner(playerSelection, computerSelection){
         playerSelection === "scissors" && computerSelection === "paper" ? "Player" :
         "Invalid selection"
     );
+}
+
+/** Supporting functions **/
+
+
+function createPara(text){
+    const p = document.createElement('p');
+    p.textContent = text;
+    return p;
 }
 
 

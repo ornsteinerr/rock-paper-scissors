@@ -10,13 +10,13 @@
 </head>
 <body>
     <h1> Rock Paper Scissors! </h1>
-    <div id="start">
+    <div id="startArea"">
         <p>How many rounds to play? </p>
         <label for="numRounds">Number of rounds </label>
         <input type="text" id="numRounds" value ="0">
         <button id="play">Play</button>
      </div>
-    <div id="gameArea">
+    <div id="gameArea" class="hidden">
         <div id="pointsTally">
             <h2> You: <div id="playerPointCounter">0</div></h2>
             <h2> Computer: <div id="computerPointCounter">0</div></h2>
@@ -31,6 +31,7 @@
             <button class="moveType">Paper</button>
             <button class="moveType">Scissors</button>
         </div>
+        <button id="restart">Restart</button>
         <div id="history"> 
             <h2>Results</h2>
             <div class="playerHistory"> <h3>Player</h3></div>
