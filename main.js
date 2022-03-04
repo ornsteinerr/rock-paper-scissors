@@ -1,7 +1,7 @@
 /// Declare game variables
 let playerPoints = 0;
 let computerPoints = 0;
-let currentRound = 0;
+let currentRound = 1;
 let numRounds;
 
 // Wait for player to start game
@@ -12,16 +12,25 @@ play.addEventListener('click', startGame);
 /* Core game logic */
 
 function startGame(){
+    // Fetch number of rounds inputted
+    numRounds = document.getElementById('numRoundsInput').value;
+    // Check whether number of rounds input is a valid integer
+    if (!(numRounds > 0))
+    {
+        const numRoundsInput = document.querySelector('#numRoundsInput');
+        numRoundsInput.classList.toggle('error');
+        return;
+
+    }
 
     // Update user inputted number of rounds to play
     const totalRoundDisplay = document.querySelector('#totalRoundDisplay');
-    numRounds = document.getElementById('numRounds').value;
     totalRoundDisplay.textContent = numRounds;
     // Hide start area
-    const startArea = document.querySelector('#startArea');
+    const startArea = document.querySelector('.startArea');
     startArea.classList.toggle('hidden');
     // Reveal game area
-    const gameArea = document.querySelector('#gameArea');
+    const gameArea = document.querySelector('.gameArea');
     gameArea.classList.toggle('hidden');
 }
 
@@ -33,26 +42,62 @@ function startGame(){
  })
 
 function playRound(){
-
     // Player makes a move
     let computerSelection = ComputerPlay();
-    let playerMove = this.textContent.toLowerCase();
-    // Update move
-    updateHistory(playerMove, computerSelection);
+    let playerMove = this.name.toLowerCase();
     // Get winner and tally points
     let winner = getWinner(playerMove, computerSelection);
-    tallyPoints(winner);
+    if (winner !== "Tie"){
+        tallyPoints(winner);
+    }
     const winnerMsg = document.querySelector('#winnerMsg');
-    winnerMsg.textContent = `The winner is: ${winner}`;
+    winnerMsg.textContent = `The round winner is: ${winner}`;
+    // Update move history
+    updateHistory(playerMove, computerSelection, winner);
     // Update round information
     updateRound();
 }
 
-function updateHistory(playerMove, computerSelection){
+function updateHistory(playerMove, computerSelection, winner){
+    let playerStatus;
+    let computerStatus;
+    if (winner !== "Tie")
+    {
+        if (winner === "Player")
+        {
+            playerStatus = "Winner";
+        } else
+        {
+            computerStatus = "Winner";
+        }
+
+    } 
     const playerHistory = document.querySelector('.playerHistory');
-    playerHistory.appendChild(createPara(playerMove));
+    playerHistory.appendChild(addMoveIcon(playerMove, playerStatus));
     const computerHistory = document.querySelector('.computerHistory');
-    computerHistory.appendChild(createPara(computerSelection));
+    computerHistory.appendChild(addMoveIcon(computerSelection, computerStatus));
+}
+
+function addMoveIcon(move, status){
+    const moveIcon = document.createElement('div');
+    switch (move) {
+        case "rock":
+            moveIcon.textContent = "✊";
+            break;
+        case "paper":
+            moveIcon.textContent = "✋";
+            break;
+        case "scissors":
+            moveIcon.textContent = "✌️"; // Scissors emoji
+            break;
+    }
+    moveIcon.classList.add('moveTypeHistory');
+    if (status === "Winner")
+    {
+        moveIcon.classList.add('winner');
+    }
+    return moveIcon;
+
 }
 
 function tallyPoints(winner){
@@ -66,15 +111,17 @@ function tallyPoints(winner){
 
 function updateRound(){
 
-    // Update round display
-    currentRound++;
-    const currentRoundDisplay = document.querySelector('#currentRoundDisplay');
-    currentRoundDisplay.textContent = currentRound;
     // If all rounds have been played, hide the move list
     if (currentRound == numRounds)
     {
         endGame();
+        return;
     }
+    
+    // Update round display
+    currentRound++;
+    const currentRoundDisplay = document.querySelector('#currentRoundDisplay');
+    currentRoundDisplay.textContent = currentRound;
 
 }
 

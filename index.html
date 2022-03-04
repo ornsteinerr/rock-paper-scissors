@@ -10,32 +10,36 @@
 </head>
 <body>
     <h1> Rock Paper Scissors! </h1>
-    <div id="startArea"">
-        <p>How many rounds to play? </p>
+    <div class="startArea"">
+        <h3>How many rounds to play? </h3>
         <label for="numRounds">Number of rounds </label>
-        <input type="text" id="numRounds" value ="0">
+        <input type="text" id="numRoundsInput" class="field" value ="0">
         <button id="play">Play</button>
      </div>
-    <div id="gameArea" class="hidden">
-        <div id="pointsTally">
-            <h2> You: <div id="playerPointCounter">0</div></h2>
-            <h2> Computer: <div id="computerPointCounter">0</div></h2>
+    <div class="gameArea hidden">
+        <div class="counter">
+            <h2 class="roundCounter">
+                Round &nbsp<div id="currentRoundDisplay">1  </div> &nbsp of &nbsp<div id="totalRoundDisplay"></div>
+            </h2>
+            <div id="pointsTally">
+                <div class="pointCounter"> <h2> You <div id="playerPointCounter">0</div></h2> </div>
+                <div class="pointCounter"> <h2> Computer <div id="computerPointCounter">0</div></h2> </div>
+            </div>
         </div>
-        <div id="round">
-            Round <div id="currentRoundDisplay">1</div> of <div id="totalRoundDisplay">0</div>
-        </div>
-        <div id="winnerMsg"></div>
         <div id="moveList">
             <p id="moveMsg">Pick a move!</p>
-            <button class="moveType">Rock</button>
-            <button class="moveType">Paper</button>
-            <button class="moveType">Scissors</button>
+            <button class="moveType" name="rock">✊</button>
+            <button class="moveType" name="paper">✋</button>
+            <button class="moveType" name="scissors">✌️</button>
         </div>
-        <button id="restart">Restart</button>
-        <div id="history"> 
+        <button id="restart" class="hidden">Restart</button>
+        <div id="resultsArea"> 
             <h2>Results</h2>
-            <div class="playerHistory"> <h3>Player</h3></div>
-            <div class="computerHistory"> <h3>Computer</h3></div>
+            <div id="winnerMsg"></div>
+            <div class="moveHistory">
+                <div class="playerHistory"> <h3>Player</h3></div>
+                <div class="computerHistory"> <h3>Computer</h3></div>
+            </div>
         </div>
     </div>
 </body>
