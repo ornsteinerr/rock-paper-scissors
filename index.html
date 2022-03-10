@@ -6,9 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
-    <script src="main.js"></script>
-    <button>Let's play</button> 
+    <h1> Rock Paper Scissors! </h1>
+    <div class="startArea"">
+        <h3>How many rounds to play? </h3>
+        <label for="numRounds">Number of rounds </label>
+        <input type="text" id="numRoundsInput" class="field" value ="0">
+        <button id="play">Play</button>
+     </div>
+    <div class="gameArea hidden">
+        <div class="counter">
+            <h2 class="roundCounter">
+                Round &nbsp<div id="currentRoundDisplay">1  </div> &nbsp of &nbsp<div id="totalRoundDisplay"></div>
+            </h2>
+            <div id="pointsTally">
+                <div class="pointCounter"> <h2> You <div id="playerPointCounter">0</div></h2> </div>
+                <div class="pointCounter"> <h2> Computer <div id="computerPointCounter">0</div></h2> </div>
+            </div>
+        </div>
+        <div id="moveList">
+            <p id="moveMsg">Pick a move!</p>
+            <button class="moveType" name="rock">✊</button>
+            <button class="moveType" name="paper">✋</button>
+            <button class="moveType" name="scissors">✌️</button>
+        </div>
+        <button id="restart" class="hidden">Restart</button>
+        <div id="resultsArea"> 
+            <h2>Results</h2>
+            <div id="winnerMsg"></div>
+            <div class="moveHistory">
+                <div class="playerHistory"> <h3>Player</h3></div>
+                <div class="computerHistory"> <h3>Computer</h3></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

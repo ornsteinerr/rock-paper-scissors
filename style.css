@@ -1,0 +1,135 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba(164, 231, 227, 0.822);
+    font-family: Roboto, sans-serif;
+}
+
+h1, h2{
+    color:rgb(47, 46, 46)
+}
+
+.startArea{
+    display: flex;
+    flex-direction: column;
+}
+
+#startArea label {
+    align-self: center;
+}
+
+.field {
+    align-self: center;
+    width: 55px;
+    font-size: 48px;
+    margin: 20px;
+}
+
+.gameArea{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.counter{
+    background-color: #f19346;
+    border-radius: 12px;
+}
+
+#pointsTally{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 300px;
+}
+
+.roundCounter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    padding: 0px 50px;
+    color: #ffffff;
+}
+
+.pointCounter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    padding: 0px 10px;
+    background-color: #f19346;
+    color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 2px 1px rgba(192, 192, 192, 0.233);
+    min-width: 100px;
+}
+
+#playerPointCounter, #computerPointCounter{
+    display: flex;
+    font-size: 36px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#moveList{
+    min-height: 170px;
+}
+
+.moveType{
+    font-size: 100px;
+    background-color: #ecb02f;
+    border-radius: 12px;
+    box-shadow: 2px 1px rgba(92, 85, 85, 0.233);
+}
+
+.moveTypeHistory{
+    font-size: 100px;
+    min-height: 25px;
+    background-color: #ecb02f;
+    border-radius: 12px;
+    box-shadow: 2px 1px rgba(92, 85, 85, 0.233);
+}
+
+
+#resultsArea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.moveHistory{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Buttons */
+
+#play, #restart {
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    background-color: #ecb02f;
+    border-radius: 12px;
+    box-shadow: 2px 1px rgba(92, 85, 85, 0.233);
+}
+
+/* Toggle and conditional styles*/
+
+.hidden {
+    display: none;
+}
+
+.error {
+    border-color:red;
+}
+
+.winner {
+    background-color:seagreen;
+}
+
+.loser {
+    background-color:red
+}
